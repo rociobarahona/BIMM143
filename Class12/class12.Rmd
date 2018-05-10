@@ -1,0 +1,52 @@
+---
+title: "Class12"
+author: "Rocio Barahona"
+date: "May 10, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+
+library(bio3d)
+file.name <- get.pdb("1hsg")
+hiv <- read.pdb(file.name)
+
+```
+
+Q1: What is the name of the two non protein resid values in this structure? What does resid
+correspond to and how would you get a listing of all reside values in this structure?
+-HOH and MK1
+
+## Select out protein only and ligand only
+
+```{r}
+
+prot <- trim.pdb(hiv, "protein")
+lig <- trim.pdb(hiv, "ligand")
+write.pdb(prot, file="1hsg_protein.pdb")
+write.pdb(lig, "1hsg_ligand.pdb")
+
+```
+
+
+Write out these new PDB files so we can use them for docking.
+
+```{r}
+
+write.pdb(lig, "1hsg_ligand.pdb")
+write.pdb(prot, "1hsg_protein.pdb")
+
+```
+
+
+
+
+
+
+
+
