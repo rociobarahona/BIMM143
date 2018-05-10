@@ -1,5 +1,5 @@
 ---
-title: "Class12"
+title: "CLASS12"
 author: "Rocio Barahona"
 date: "May 10, 2018"
 output: html_document
@@ -8,7 +8,6 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
 
 ```{r}
 
@@ -42,11 +41,3 @@ write.pdb(lig, "1hsg_ligand.pdb")
 write.pdb(prot, "1hsg_protein.pdb")
 
 ```
-
-
-
-
-
-
-
-
