@@ -1,0 +1,155 @@
+---
+title: "Class 13"
+author: "Rocio Barahona"
+date: "May 15, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1000 Genomes Data Analysis
+
+Downloaded genotype data from Ensembl for Asthma associated SNP rs8067378
+See: (MXL) Mexican Ancestry in Los Angeles, California
+```{r}
+# Read CSV file
+
+genotype <- read.csv("373531-SampleGenotypes-Homo_sapiens_Variation_Sample_rs8067378.csv")
+
+head(genotype)
+
+
+```
+
+Find how m any of each genotype thre are in this dataset
+```{r}
+
+genotype.summary <- table(genotype[,2])
+genotype.summary
+
+```
+
+Proportion of each genotype 
+```{r}
+
+genotype.summary/nrow(genotype) * 100
+
+```
+
+## RNA-seq 
+Look more closely at sample HG00109 G|G
+
+```{r}
+#install.packages("seqinr")
+#install.packages("gtools")
+library("seqinr")
+library("gtools")
+
+```
+
+```{r}
+
+phred <- asc( s2c("DDDDCDEDCDDDDBBDDDCC@") ) - 33
+phred
+
+```
+```{r}
+
+prob <- 10**(-phred/10)
+prob
+
+```
+
+## RNA-seq population scale analysis
+Read our results file from RNA-seq across ~230 samples (ie. people!)
+```{r}
+
+expr <- read.table("rs8067378_ENSG00000172057.6.txt")
+
+```
+
+Look at data
+```{r}
+
+table(expr$geno)
+
+```
+
+How many samples?
+```{r}
+
+nrow(expr)
+
+```
+
+Expression level summary statistics
+```{r}
+summary(expr)
+```
+
+
+```{r}
+
+
+
+```
+
+
+
+```{r}
+
+## boxplot
+boxplot(exp ~ geno, data = expr)
+
+```
+
+```{r}
+
+boxplot(exp ~ geno, data = expr, notch = TRUE)
+
+```
+
+
+```{r}
+
+library(ggplot2)
+
+ggplot(expr, aes(geno, exp)) + geom_boxplot()
+
+```
+
+
+
+
+```{r}
+
+## Histogram of the exp column with ggplot2
+ggplot(expr, aes(exp, fill = geno)) + geom_density(alpha = 0.2)
+
+```
+
+
+```{r}
+
+# Boxplot with the data shown
+ggplot(expr, aes(geno, exp, fill=geno)) + 
+  geom_boxplot(notch=TRUE, outlier.shape = NA) + 
+  geom_jitter(shape=16, position=position_jitter(0.2), alpha=0.4)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
